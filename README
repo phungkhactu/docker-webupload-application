@@ -1,0 +1,25 @@
+INSTRUCTION:
+    - Software Http Web Upload (Golang Program) run on docker image with Go Environment
+    - Software include 2 part:
+        + Part 1: Software is deployed in docker with Dockerfile and image is published in dockerhub with name: tupk/httpupload.
+        + Part 2: Software is deployed in docker with Dockerfile and image is published in dockerhub with name: tupk/httpupload.
+        Docker Container is deployed in Linux Container Core OS by vagrant.
+
+HOW TO BUILD:
+    - Build software in local: from src/webupload run command: go build upload.go (Optional)
+    - Part 1:
+        + Build (with su permission): docker build -t httpupload .
+        + Run (with su permission): docker run -p 9090:9090
+    - Part 2:
+        + Build & Run: From coreos-vagrant/ run command: vagrant up. After run success, you can ssh to node with command: vagrant ssh core-01 
+        and see log with command: journalctl -f -u docker-http-upload.
+        + You need to wait for 2-3 minutes for pull docker image and run it.
+        
+HOW TO TEST:
+    - Access address in browser: http://localhost:9090/upload or query POST API for uploading file
+    - Part 1: Check file is uploaded in /tmp
+    - Part 2: ssh to CoreOS: vagrant ssh core-01 and check file is uploaded in /tmp
+
+NOTES:
+    - When you deploy software with CoreOS, you can use CoreOS image in Bare Metal, some hypervisor as: KVM, Virtualbox,.. or openstack.
+    - Detail about CoreOS: https://coreos.com/
